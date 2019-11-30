@@ -1,16 +1,11 @@
 import requests
-import api
 import json
 
-URL = "http://localhost:8080"
+user = "John Wick"
 
-user = "Jhon Wick"
-
-PARAMS = {'userName': user}
-
-r = requests.get(url = URL, params = PARAMS)
-
-data = r.json
+URL = "http://localhost:8080/{}".format(user)
 
 
-print(data["userName"])
+data = requests.get(url = URL).json()
+
+print(data)
