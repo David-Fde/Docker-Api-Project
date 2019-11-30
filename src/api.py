@@ -6,7 +6,11 @@ import json
 
 @get("/")
 def index():
-    user = input('User: ')
-    return dumps(coll.find({'userName':str(user)}))
+    return dumps(coll.find())
 
-run(host='localhost', port=8080)
+@get("/<tipo>")
+def demo2(tipo):
+    return dumps(coll.find({'userName':tipo}))
+
+
+run(host='0.0.0.0', port=8080)
