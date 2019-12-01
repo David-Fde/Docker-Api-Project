@@ -1,7 +1,7 @@
 from bottle import route, run, get, post, request
 import random
 from bson.json_util import dumps
-from populate import db, coll
+from connections import db, coll
 import json
 
 
@@ -17,19 +17,15 @@ def get_user(user):
 def get_chat(chat_id):
     return dumps(coll.find({"idChat":int(chat_id)}))
 
-'''
-@post('/add')
-def add_user():    
-    new_idUser = coll.distinct("idUser")[-1] + 1
-    new_name = str(request.forms.get("userName"))
-    new_idmessage = coll.distinct("idMessage")[-1] + 1
-    new_idchat = coll.distinct("idChat")[-1] + 1
-    new_text = coll.distinct("text")[-1] + 1
-    document = {"idUser": new_idUser,
-                "userName": new_name,
-                "idMessage": new_idmessage,
-                "idChat": new_idchat,
-                "text": new_text
-               }
-'''
+@post('/user/create')
+def newUser():
+    name = str(request.forms.get("name"))
+    new_id = coll.distinct("idUser")[-1] + 1
+    new_user = {
+        "idUser": new_id,
+        "userName": name
+    }
+    print(new_user)
+
+
 run(host='0.0.0.0', port=8080)
