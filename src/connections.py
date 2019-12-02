@@ -3,11 +3,12 @@
 from pymongo import MongoClient
 import getpass
 import json
-
+'''
 def getCollection():
     collection = input('Insert collection: ')
     return collection
-
+#collection = getCollection()
+'''
 #Get Password
 password = getpass.getpass("Insert your AtlasMongoDB admin_1019 password: ")
 connection = "mongodb+srv://David:{}@cluster1-ylvcr.mongodb.net/test?retryWrites=true&w=majority".format(password)
@@ -19,6 +20,4 @@ def connectCollection(database, collection):
     coll = db[collection]
     return db, coll
 
-collection = getCollection()
-
-db, coll = connectCollection('conversations',collection)
+db, coll = connectCollection('conversations','conversations')
