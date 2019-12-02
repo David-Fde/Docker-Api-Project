@@ -17,21 +17,20 @@ def get_user(user):
 def get_chat(chat_id):
     return dumps(coll.find({"idChat":int(chat_id)}))
 
-@post('/user/<id_chat>/<user>')
-def newUser(id_chat,user):
+@post('/user')
+def newUser():
     new_id = coll.distinct("idUser")[-1] + 1
-    name = str(user) 
-    new_idmessage = coll.distinct("idMessage")[-1] + 1
-    new_chat = int(id_chat)
-    datetime= str(request.forms.get("datetime"))
-    text = str(request.forms.get("text"))
+    #new_idmessage = coll.distinct("idMessage")[-1] + 1
+    new_chat= int(request.forms.get("chatId"))
+    name = str(request.forms.get("userName"))
+    new_text = str(request.forms.get("text"))
     new_user = {
         "idUser": new_id,
         "userName": name,
-        "idMessage": new_idmessage,
+        #"idMessage": new_idmessage,
         "idChat": new_chat,
-        "datetime": datetime,
-        "text": text
+        #"datetime": datetime,
+        "text": new_text
     }
     coll.insert_one(new_user)
     print(f"{name} added to collection with id {new_id}")
