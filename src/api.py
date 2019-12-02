@@ -4,6 +4,7 @@ from bson.json_util import dumps
 from connections import db, coll
 import json
 import datetime
+import functions as fnc
 
 
 @get("/")
@@ -17,6 +18,10 @@ def get_user(user):
 @get("/chat/<chat_id>/list")
 def get_chat(chat_id):
     return dumps(coll.find({"idChat":int(chat_id)}))
+
+@get("/chat/<chat_id>/sentiment")
+def get_sentiment(chat_id):
+    return fnc.sentiment(get_chat(chat_id))
 
 @post('/user/create')
 def new_user():
