@@ -23,10 +23,14 @@ def get_chat(chat_id):
 def get_sentiment(chat_id):
     return fnc.sentiment(get_chat(chat_id))
 
+@get("/user/<user_id>/recommend")
+def get_recommendation(user_id):    
+    return fnc.recommendation(user_id,get_all())
+
 @post('/user/create')
 def new_user():
-    new_id = coll.distinct("idUser")[-1] + 1
-    name = str(request.forms.get("userName"))
+    new_id = coll.distinct("idUser")[-1] + 1  
+    name = str(request.forms.get("userName"))  
     date = str(datetime.datetime.now())
     print(f"User {name} added with id {new_id}")
     new_user = {
@@ -39,7 +43,6 @@ def new_user():
 
 @post('/chat/create')
 def new_chat():
-    new_idmessage = coll.distinct("idMessage")[-1] + 1
     chatId= int(request.forms.get("idChat"))
     print(f"Chat added with id {chatId}")
     new_chat = {
